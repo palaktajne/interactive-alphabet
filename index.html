@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Alphabet Sound Buddy</title>
+
+    <!-- Bootstrap CSS Framework -->
+    <link
+        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+    >
+
+    <style>
+        body {
+            background: #f5f7ff;
+            font-family: Arial, sans-serif;
+        }
+
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.4rem;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+        }
+
+        .hero-title {
+            font-size: 4rem;
+            font-weight: 800;
+            color: #6c5ce7;
+        }
+
+        .hero-card {
+            border: none;
+            border-radius: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+        }
+
+        .hero-letter {
+            font-size: 120px;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+
+        .alphabet-card {
+            border: none;
+            border-radius: 20px;
+            transition: 0.3s;
+            cursor: pointer;
+            box-shadow: 0 5px 18px rgba(0,0,0,0.08);
+        }
+
+        .alphabet-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .letter {
+            font-size: 60px;
+            font-weight: bold;
+            color: #6c5ce7;
+        }
+
+        .emoji {
+            font-size: 50px;
+        }
+
+        .game-box {
+            max-width: 700px;
+            margin: auto;
+            border-radius: 25px;
+            border: none;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .option-btn {
+            min-width: 120px;
+            margin: 8px;
+        }
+
+        .progress {
+            height: 25px;
+            border-radius: 20px;
+        }
+
+        footer {
+            background: #6c5ce7;
+            color: white;
+            padding: 20px;
+        }
+
+        @media(max-width:768px) {
+            .hero-title {
+                font-size: 2.7rem;
+            }
+
+            .hero {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- ================= NAVBAR ================= -->
+
+<nav class="navbar navbar-expand-lg bg-white shadow-sm sticky-top">
+
+    <div class="container">
+
+        <a class="navbar-brand text-primary" href="#">
+            🔤 Alphabet Sound Buddy
+        </a>
+
+        <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarMenu"
+        >
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarMenu">
+
+            <ul class="navbar-nav ms-auto">
+
+                <li class="nav-item">
+                    <button class="btn nav-link"
+                        onclick="showSection('home')">
+                        Home
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="btn nav-link"
+                        onclick="showSection('learn')">
+                        Learn
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="btn nav-link"
+                        onclick="showSection('game')">
+                        Game
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="btn nav-link"
+                        onclick="showSection('quiz')">
+                        Quiz
+                    </button>
+                </li>
+
+                <li class="nav-item">
+                    <button class="btn nav-link"
+                        onclick="showSection('progress')">
+                        Progress
+                    </button>
+                </li>
+
+            </ul>
+
+        </div>
+
+    </div>
+
+</nav>
+
+
+<!-- ================= HOME ================= -->
+
+<section id="home">
+
+    <div class="container hero">
+
+        <div class="row align-items-center w-100">
+
+            <div class="col-lg-7">
+
+                <h1 class="hero-title">
+                    Learn ABCs
+                    <br>
+                    With Fun! 🌈
+                </h1>
+
+                <p class="lead text-muted mt-3">
+
+                    Learn letters, sounds and words
+                    through interactive games.
+
+                </p>
+
+                <button
+                    class="btn btn-primary btn-lg mt-3"
+                    onclick="showSection('learn')"
+                >
+                    🚀 Start Learning
+                </button>
+
+            </div>
+
+
+            <div class="col-lg-5 mt-4 mt-lg-0">
+
+                <div class="card hero-card text-center p-5">
+
+                    <div class="hero-letter">
+                        A
+                    </div>
+
+                    <div class="display-1">
+                        🍎
+                    </div>
+
+                    <h3>
+                        A is for Apple
+                    </h3>
+
+                    <button
+                        class="btn btn-success mt-3"
+                        onclick="speak('A is for Apple')"
+                    >
+                        🔊 Listen
+                    </button>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= LEARN ================= -->
+
+<section id="learn" class="container py-5 d-none">
+
+    <div class="text-center mb-5">
+
+        <h2 class="display-5 fw-bold">
+            🔤 Learn the Alphabet
+        </h2>
+
+        <p class="text-muted">
+            Click a letter to hear its pronunciation.
+        </p>
+
+    </div>
+
+    <div class="row g-4" id="alphabetContainer"></div>
+
+</section>
+
+
+<!-- ================= GAME ================= -->
+
+<section id="game" class="container py-5 d-none">
+
+    <div class="card game-box p-5 text-center">
+
+        <h2>
+            🎮 Find the Letter
+        </h2>
+
+        <h4
+            class="my-4"
+            id="gameQuestion"
+        >
+            Which letter starts Apple?
+        </h4>
+
+        <div id="gameOptions"></div>
+
+        <h5
+            id="gameResult"
+            class="my-3"
+        ></h5>
+
+        <div class="mb-3">
+            ⭐ Score:
+            <span id="gameScore">
+                0
+            </span>
+        </div>
+
+        <button
+            class="btn btn-primary"
+            onclick="newGameQuestion()"
+        >
+            Next Question ➡️
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= QUIZ ================= -->
+
+<section id="quiz" class="container py-5 d-none">
+
+    <div class="card game-box p-5 text-center">
+
+        <h2>
+            🧠 Alphabet Quiz
+        </h2>
+
+        <h4
+            id="quizQuestion"
+            class="my-4"
+        >
+            Which word starts with A?
+        </h4>
+
+        <div id="quizOptions"></div>
+
+        <h5
+            id="quizResult"
+            class="my-3"
+        ></h5>
+
+        <div class="mb-3">
+
+            ⭐ Quiz Score:
+
+            <span id="quizScore">
+                0
+            </span>
+
+        </div>
+
+        <button
+            class="btn btn-primary"
+            onclick="nextQuizQuestion()"
+        >
+            Next Question ➡️
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= PROGRESS ================= -->
+
+<section id="progress" class="container py-5 d-none">
+
+    <div class="text-center">
+
+        <h2 class="display-5 fw-bold">
+            📊 My Progress
+        </h2>
+
+    </div>
+
+    <div class="card p-5 mt-4 shadow-sm">
+
+        <div class="row text-center">
+
+            <div class="col-md-4">
+
+                <h3>
+                    ⭐
+                </h3>
+
+                <h2 id="totalScore">
+                    0
+                </h2>
+
+                <p>
+                    Total Stars
+                </p>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h3>
+                    🔤
+                </h3>
+
+                <h2>
+
+                    <span id="learnedLetters">
+                        0
+                    </span>
+
+                    / 26
+
+                </h2>
+
+                <p>
+                    Letters Learned
+                </p>
+
+            </div>
+
+            <div class="col-md-4">
+
+                <h3>
+                    🏆
+                </h3>
+
+                <h2 id="badge">
+                    Beginner
+                </h2>
+
+                <p>
+                    Achievement
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <h5 class="mt-4">
+            Alphabet Progress
+        </h5>
+
+        <div class="progress">
+
+            <div
+                id="progressBar"
+                class="progress-bar bg-success"
+                style="width:0%"
+            >
+                0%
+            </div>
+
+        </div>
+
+
+        <button
+            class="btn btn-danger mt-4"
+            onclick="resetProgress()"
+        >
+            🔄 Reset Progress
+        </button>
+
+    </div>
+
+</section>
+
+
+<!-- ================= FOOTER ================= -->
+
+<footer class="text-center mt-5">
+
+    <p class="mb-0">
+        🌟 Alphabet Sound Buddy © 2026
+    </p>
+
+</footer>
+
+
+<!-- Bootstrap JavaScript -->
+
+<script
+src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js">
+</script>
+
+
+<!-- ================= JAVASCRIPT ================= -->
+
+<script>
+
+const alphabet = [
+
+    ["A","Apple","🍎"],
+    ["B","Ball","⚽"],
+    ["C","Cat","🐱"],
+    ["D","Dog","🐶"],
+    ["E","Elephant","🐘"],
+    ["F","Fish","🐟"],
+    ["G","Grapes","🍇"],
+    ["H","Hat","🎩"],
+    ["I","Ice Cream","🍦"],
+    ["J","Juice","🧃"],
+    ["K","Kite","🪁"],
+    ["L","Lion","🦁"],
+    ["M","Monkey","🐒"],
+    ["N","Nest","🪺"],
+    ["O","Orange","🍊"],
+    ["P","Pencil","✏️"],
+    ["Q","Queen","👑"],
+    ["R","Rabbit","🐰"],
+    ["S","Sun","☀️"],
+    ["T","Tiger","🐯"],
+    ["U","Umbrella","☂️"],
+    ["V","Van","🚐"],
+    ["W","Whale","🐋"],
+    ["X","Xylophone","🎵"],
+    ["Y","Yak","🐂"],
+    ["Z","Zebra","🦓"]
+
+];
+
+
+let gameScore =
+    Number(localStorage.getItem("gameScore")) || 0;
+
+let quizScore =
+    Number(localStorage.getItem("quizScore")) || 0;
+
+let learnedLetters =
+    JSON.parse(
+        localStorage.getItem("learnedLetters")
+    ) || [];
+
+
+// ================= NAVIGATION =================
+
+function showSection(section) {
+
+    const sections = [
+        "home",
+        "learn",
+        "game",
+        "quiz",
+        "progress"
+    ];
+
+    sections.forEach(id => {
+
+        document
+            .getElementById(id)
+            .classList.add("d-none");
+
+    });
+
+    document
+        .getElementById(section)
+        .classList.remove("d-none");
+
+    updateProgress();
+}
+
+
+// ================= SPEECH =================
+
+function speak(text) {
+
+    if (
+        "speechSynthesis"
+        in window
+    ) {
+
+        speechSynthesis.cancel();
+
+        const voice =
+            new SpeechSynthesisUtterance(text);
+
+        voice.rate = 0.8;
+
+        voice.pitch = 1.1;
+
+        speechSynthesis.speak(voice);
+
+    }
+
+}
+
+
+// ================= ALPHABET =================
+
+const container =
+    document.getElementById(
+        "alphabetContainer"
+    );
+
+
+alphabet.forEach(item => {
+
+    const col =
+        document.createElement("div");
+
+    col.className =
+        "col-6 col-md-4 col-lg-3";
+
+
+    col.innerHTML = `
+
+        <div
+            class="card alphabet-card h-100 p-4 text-center"
+            onclick="learnLetter('${item[0]}')"
+        >
+
+            <div class="letter">
+                ${item[0]}
+            </div>
+
+            <div class="emoji">
+                ${item[2]}
+            </div>
+
+            <h4>
+                ${item[1]}
+            </h4>
+
+            <button
+                class="btn btn-success btn-sm"
+                onclick="event.stopPropagation();
+                speak('${item[0]} is for ${item[1]}')"
+            >
+                🔊 Listen
+            </button>
+
+        </div>
+
+    `;
+
+    container.appendChild(col);
+
+});
+
+
+function learnLetter(letter) {
+
+    const item =
+        alphabet.find(
+            x => x[0] === letter
+        );
+
+    if (
+        !learnedLetters.includes(letter)
+    ) {
+
+        learnedLetters.push(letter);
+
+        localStorage.setItem(
+            "learnedLetters",
+            JSON.stringify(
+                learnedLetters
+            )
+        );
+
+        alert(
+            `🎉 You learned ${letter}!`
+        );
+
+    }
+
+    speak(
+        `${item[0]} is for ${item[1]}`
+    );
+
+    updateProgress();
+
+}
+
+
+// ================= GAME =================
+
+let correctGameAnswer;
+
+
+function newGameQuestion() {
+
+    const random =
+        alphabet[
+            Math.floor(
+                Math.random()
+                * alphabet.length
+            )
+        ];
+
+
+    correctGameAnswer =
+        random[0];
+
+
+    document
+        .getElementById(
+            "gameQuestion"
+        )
+        .textContent =
+        `Which letter starts "${random[1]}"?`;
+
+
+    let options = [
+        random[0]
+    ];
+
+
+    while (
+        options.length < 3
+    ) {
+
+        const r =
+            alphabet[
+                Math.floor(
+                    Math.random()
+                    * alphabet.length
+                )
+            ][0];
+
+
+        if (
+            !options.includes(r)
+        ) {
+
+            options.push(r);
+
+        }
+
+    }
+
+
+    options.sort(
+        () => Math.random() - 0.5
+    );
+
+
+    const box =
+        document.getElementById(
+            "gameOptions"
+        );
+
+
+    box.innerHTML = "";
+
+
+    options.forEach(letter => {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.className =
+            "btn btn-warning option-btn";
+
+
+        button.textContent =
+            letter;
+
+
+        button.onclick =
+            () =>
+            checkGameAnswer(letter);
+
+
+        box.appendChild(button);
+
+    });
+
+
+    document
+        .getElementById(
+            "gameResult"
+        )
+        .textContent = "";
+
+}
+
+
+function checkGameAnswer(answer) {
+
+    const result =
+        document.getElementById(
+            "gameResult"
+        );
+
+
+    if (
+        answer === correctGameAnswer
+    ) {
+
+        gameScore += 10;
+
+
+        result.textContent =
+            "🎉 Correct! +10 ⭐";
+
+
+        speak(
+            "Correct! Great job!"
+        );
+
+    } else {
+
+        result.textContent =
+            "❌ Try again!";
+
+
+        speak(
+            "Try again!"
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "gameScore",
+        gameScore
+    );
+
+
+    document
+        .getElementById(
+            "gameScore"
+        )
+        .textContent =
+        gameScore;
+
+
+    updateProgress();
+
+}
+
+
+// ================= QUIZ =================
+
+let correctQuizAnswer;
+
+
+function nextQuizQuestion() {
+
+    const random =
+        alphabet[
+            Math.floor(
+                Math.random()
+                * alphabet.length
+            )
+        ];
+
+
+    correctQuizAnswer =
+        random[1];
+
+
+    document
+        .getElementById(
+            "quizQuestion"
+        )
+        .textContent =
+        `Which word starts with ${random[0]}?`;
+
+
+    let options = [
+        random[1]
+    ];
+
+
+    while (
+        options.length < 3
+    ) {
+
+        const r =
+            alphabet[
+                Math.floor(
+                    Math.random()
+                    * alphabet.length
+                )
+            ][1];
+
+
+        if (
+            !options.includes(r)
+        ) {
+
+            options.push(r);
+
+        }
+
+    }
+
+
+    options.sort(
+        () => Math.random() - 0.5
+    );
+
+
+    const box =
+        document.getElementById(
+            "quizOptions"
+        );
+
+
+    box.innerHTML = "";
+
+
+    options.forEach(word => {
+
+        const button =
+            document.createElement(
+                "button"
+            );
+
+
+        button.className =
+            "btn btn-outline-primary option-btn";
+
+
+        button.textContent =
+            word;
+
+
+        button.onclick =
+            () =>
+            checkQuizAnswer(word);
+
+
+        box.appendChild(button);
+
+    });
+
+
+    document
+        .getElementById(
+            "quizResult"
+        )
+        .textContent = "";
+
+}
+
+
+function checkQuizAnswer(answer) {
+
+    const result =
+        document.getElementById(
+            "quizResult"
+        );
+
+
+    if (
+        answer === correctQuizAnswer
+    ) {
+
+        quizScore += 10;
+
+
+        result.textContent =
+            "🎉 Correct Answer! +10 ⭐";
+
+
+        speak(
+            "Correct answer!"
+        );
+
+    } else {
+
+        result.textContent =
+            "❌ Wrong answer!";
+
+
+        speak(
+            "Wrong answer. Try again!"
+        );
+
+    }
+
+
+    localStorage.setItem(
+        "quizScore",
+        quizScore
+    );
+
+
+    document
+        .getElementById(
+            "quizScore"
+        )
+        .textContent =
+        quizScore;
+
+
+    updateProgress();
+
+}
+
+
+// ================= PROGRESS =================
+
+function updateProgress() {
+
+    const total =
+        gameScore + quizScore;
+
+
+    document
+        .getElementById(
+            "totalScore"
+        )
+        .textContent =
+        total;
+
+
+    document
+        .getElementById(
+            "learnedLetters"
+        )
+        .textContent =
+        learnedLetters.length;
+
+
+    const percentage =
+        Math.round(
+            (
+                learnedLetters.length
+                / 26
+            ) * 100
+        );
+
+
+    const bar =
+        document.getElementById(
+            "progressBar"
+        );
+
+
+    bar.style.width =
+        percentage + "%";
+
+
+    bar.textContent =
+        percentage + "%";
+
+
+    const badge =
+        document.getElementById(
+            "badge"
+        );
+
+
+    if (
+        learnedLetters.length === 26
+    ) {
+
+        badge.textContent =
+            "👑 Alphabet Master";
+
+    }
+    else if (
+        learnedLetters.length >= 15
+    ) {
+
+        badge.textContent =
+            "🏆 Alphabet Explorer";
+
+    }
+    else if (
+        learnedLetters.length >= 5
+    ) {
+
+        badge.textContent =
+            "⭐ Fast Learner";
+
+    }
+    else {
+
+        badge.textContent =
+            "🌱 Beginner";
+
+    }
+
+}
+
+
+// ================= RESET =================
+
+function resetProgress() {
+
+    const confirmReset =
+        confirm(
+            "Reset all progress?"
+        );
+
+
+    if (confirmReset) {
+
+        localStorage.removeItem(
+            "gameScore"
+        );
+
+        localStorage.removeItem(
+            "quizScore"
+        );
+
+        localStorage.removeItem(
+            "learnedLetters"
+        );
+
+
+        gameScore = 0;
+
+        quizScore = 0;
+
+        learnedLetters = [];
+
+
+        updateProgress();
+
+
+        alert(
+            "Progress reset successfully!"
+        );
+
+    }
+
+}
+
+
+// ================= START =================
+
+newGameQuestion();
+
+nextQuizQuestion();
+
+updateProgress();
+
+</script>
+
+</body>
+</html>
